@@ -1,18 +1,23 @@
-/* tokens.css — design tokens */
+/* tokens.css — design tokens (luxury-fashion / ERD direction) */
 :root {
   --color-base: #000000;
   --color-text: #ffffff;
-  --color-text-muted: #86868b;
-  --color-accent: #0066cc;
-  --color-divider: #1d1d1f;
-  --font: system-ui, -apple-system, "Helvetica Neue", sans-serif;
-  --fs-email: clamp(28px, 6vw, 72px);
-  --fs-label: 13px;
-  --fs-body: 15px;
-  --content-max: 1600px;
+  --color-text-muted: #6e6e73;
+  --color-divider: #1a1a1c;
+  --color-placeholder: #0e0e10;
 
-  /* motion */
-  --ease-page: cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-page: 600ms;
-  --space: clamp(20px, 4vw, 64px);
+  /* Helvetica Neue Medium, tight tracking. No webfont bundled (licensed) —
+     renders true Helvetica Neue on Apple, Helvetica/Arial elsewhere. */
+  --font: "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+  --fw: 500;
+
+  --fs-email: clamp(26px, 5.5vw, 64px);
+  --fs-label: 12px;
+  --fs-body: 16px;
+  --content-max: 1840px;
+
+  /* motion — minimal */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 480ms;
+  --space: clamp(18px, 3vw, 44px);
 }

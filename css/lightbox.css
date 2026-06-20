@@ -11,7 +11,7 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   opacity: 0;
-  transition: opacity 0.35s var(--ease-page);
+  transition: opacity 0.35s var(--ease);
 }
 .lb.is-open { display: flex; opacity: 1; }
 

@@ -1,6 +1,6 @@
 /* i18n.js — auto language detection + dictionary + switcher
  * UI strings only. Project titles/descriptions stay English (from JSON).
- * Override via #lang=xx ; persisted only in URL hash + in-memory (no localStorage).
+ * Auto-detect only (no switcher UI). An optional #lang=xx still forces a locale.
  */
 (function () {
   const LANGS = ["fr", "de", "en", "it", "ru"];
@@ -100,14 +100,7 @@
   function apply() {
     document.documentElement.lang = current;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      const txt = t(key);
-      if (el.hasAttribute("data-i18n-keep-suffix")) {
-        // preserve a trailing glyph like " →"
-        el.firstChild ? (el.childNodes[0].nodeValue = txt) : (el.textContent = txt);
-      } else {
-        el.textContent = txt;
-      }
+      el.textContent = t(el.getAttribute("data-i18n"));
     });
     document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
       // format: "aria-label:lightbox_close"
@@ -116,46 +109,12 @@
         if (attr && key) el.setAttribute(attr.trim(), t(key.trim()));
       });
     });
-    // switcher state
-    document.querySelectorAll(".lang-switch button").forEach((b) => {
-      b.setAttribute("aria-current", b.dataset.lang === current ? "true" : "false");
-    });
     document.dispatchEvent(new CustomEvent("i18n:change", { detail: { lang: current } }));
   }
 
-  function setLang(lang) {
-    if (!LANGS.includes(lang)) return;
-    current = lang;
-    // update hash without scroll jump
-    history.replaceState(null, "", "#lang=" + lang);
-    apply();
-  }
-
-  function buildSwitcher() {
-    if (document.querySelector(".lang-switch")) return;
-    const nav = document.createElement("nav");
-    nav.className = "lang-switch";
-    nav.setAttribute("aria-label", "Language");
-    LANGS.forEach((l) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.dataset.lang = l;
-      b.textContent = l.toUpperCase();
-      b.addEventListener("click", () => setLang(l));
-      nav.appendChild(b);
-    });
-    document.body.appendChild(nav);
-  }
-
-  window.addEventListener("hashchange", () => {
-    const h = hashLang();
-    if (h && LANGS.includes(h) && h !== current) setLang(h);
-  });
-
-  window.i18n = { t, setLang, get lang() { return current; }, LANGS };
+  window.i18n = { t, get lang() { return current; }, LANGS };
 
   function init() {
-    buildSwitcher();
     apply();
   }
   if (document.readyState === "loading") {
