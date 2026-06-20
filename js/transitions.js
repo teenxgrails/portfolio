@@ -25,13 +25,13 @@
       @keyframes ete-out { to { opacity: 0; transform: scale(0.96); } }
       @keyframes ete-in  { from { opacity: 0; transform: scale(1.04); } }
       ::view-transition-old(root) {
-        animation: ete-out var(--dur-page,600ms) var(--ease-page,cubic-bezier(0.65,0,0.35,1)) both;
+        animation: ete-out var(--dur,600ms) var(--ease,cubic-bezier(0.65,0,0.35,1)) both;
       }
       ::view-transition-new(root) {
-        animation: ete-in var(--dur-page,600ms) var(--ease-page,cubic-bezier(0.65,0,0.35,1)) both;
+        animation: ete-in var(--dur,600ms) var(--ease,cubic-bezier(0.65,0,0.35,1)) both;
       }
       html.is-leaving { opacity: 0; transform: scale(0.98);
-        transition: opacity .28s var(--ease-page), transform .28s var(--ease-page); }`;
+        transition: opacity .28s var(--ease), transform .28s var(--ease); }`;
     document.head.appendChild(style);
   }
 

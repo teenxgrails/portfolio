@@ -3,29 +3,17 @@
     {
       "title": "teenxgrailed.com",
       "description": "full website creating",
-      "imageDesktop": "",
-      "imageMobile": "",
+      "layout": "desktop-mobile",
+      "desktopVideo": "/assets/videos/teenxgrailed1.mp4",
+      "mobileVideo": "/assets/videos/teenxgrailed2.mp4",
       "link": "https://teenxgrailed.com"
     },
     {
       "title": "site for restaurant",
       "description": "design + build",
-      "imageDesktop": "",
-      "imageMobile": "",
-      "link": ""
-    },
-    {
-      "title": "portfolio landing",
-      "description": "single-page concept",
-      "imageDesktop": "",
-      "imageMobile": "",
-      "link": ""
-    },
-    {
-      "title": "shop front",
-      "description": "storefront layout",
-      "imageDesktop": "",
-      "imageMobile": "",
+      "layout": "mobile-desktop",
+      "desktopVideo": "",
+      "mobileVideo": "",
       "link": ""
     }
   ]

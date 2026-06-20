@@ -20,9 +20,11 @@ collections:
             widget: "list"
             fields:
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "text", required: false }
-              - { label: "Desktop image", name: "imageDesktop", widget: "image", required: false }
-              - { label: "Mobile image", name: "imageMobile", widget: "image", required: false }
+              - { label: "Description", name: "description", widget: "string", required: false }
+              - { label: "Layout", name: "layout", widget: "select", default: "desktop-mobile",
+                  options: ["desktop-mobile", "mobile-desktop", "desktop-only"] }
+              - { label: "Desktop video", name: "desktopVideo", widget: "file", required: false }
+              - { label: "Mobile video", name: "mobileVideo", widget: "file", required: false }
               - { label: "Link", name: "link", widget: "string", required: false }
 
   - name: "programs"
@@ -37,9 +39,11 @@ collections:
             widget: "list"
             fields:
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "text", required: false }
-              - { label: "Desktop image", name: "imageDesktop", widget: "image", required: false }
-              - { label: "Mobile image", name: "imageMobile", widget: "image", required: false }
+              - { label: "Description", name: "description", widget: "string", required: false }
+              - { label: "Layout", name: "layout", widget: "select", default: "desktop-mobile",
+                  options: ["desktop-mobile", "mobile-desktop", "desktop-only"] }
+              - { label: "Desktop video", name: "desktopVideo", widget: "file", required: false }
+              - { label: "Mobile video", name: "mobileVideo", widget: "file", required: false }
               - { label: "Link", name: "link", widget: "string", required: false }
 
   - name: "videos"
@@ -54,9 +58,9 @@ collections:
             widget: "list"
             fields:
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Description", name: "description", widget: "string", required: false }
+              - { label: "Video", name: "video", widget: "file", required: false }
               - { label: "Poster image", name: "poster", widget: "image", required: false }
-              - { label: "Video URL", name: "videoUrl", widget: "string", required: false }
 
   - name: "designs"
     label: "Designs"
@@ -69,5 +73,5 @@ collections:
             name: "items"
             widget: "list"
             fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Image", name: "image", widget: "image" }

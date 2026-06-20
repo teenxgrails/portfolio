@@ -85,7 +85,7 @@
         media.style.transform = `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`;
         media.style.transition = "none";
         requestAnimationFrame(() => {
-          media.style.transition = "transform 0.5s var(--ease-page)";
+          media.style.transition = "transform 0.5s var(--ease)";
           media.style.transform = "none";
         });
       });
