@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Designs — ete23.com</title>
+  <meta name="description" content="Designs 2022–2023 by été23." />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/grid-page.css" />
+  <link rel="stylesheet" href="css/lightbox.css" />
+</head>
+<body>
+  <a class="back-arrow" href="index.html" data-transition aria-label="Back to index" data-cursor-label="Back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>
+  </a>
+
+  <main class="page">
+    <header class="page__head">
+      <h1 class="page__title" data-i18n="cat_designs">Designs</h1>
+      <p class="page__sub">2022–2023</p>
+    </header>
+
+    <!-- VK-style composite with animated dashed annotations -->
+    <section class="designs-composite" data-lines aria-label="layout reference">
+      <div class="composite-zones">
+        <div class="zone zone--banner" data-zone="banner">
+          <span class="zone__label" data-zone-label="banner" data-i18n="designs_banner">banner</span>
+          <span class="placeholder" data-dim="BANNER" style="position:absolute;inset:0;z-index:0"></span>
+        </div>
+        <div class="zone zone--avatar" data-zone="avatar">
+          <span class="zone__label" data-zone-label="avatar" data-i18n="designs_avatar">avatar</span>
+          <span class="placeholder" data-dim="AVATAR" style="position:absolute;inset:0;z-index:0"></span>
+        </div>
+        <div class="zone zone--other" data-zone="other">
+          <span class="zone__label" data-zone-label="other" data-i18n="designs_other">other pictures</span>
+          <span class="placeholder" data-dim="OTHER PICTURES" style="position:absolute;inset:0;z-index:0"></span>
+        </div>
+      </div>
+    </section>
+
+    <div data-render="designs"></div>
+  </main>
+
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/scroll-smooth.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/parallax.js"></script>
+  <script src="js/lightbox.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/lines.js"></script>
+  <script src="js/transitions.js"></script>
+</body>
+</html>
