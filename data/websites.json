@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "title": "teenxgrailed.com",
+      "description": "full website creating",
+      "imageDesktop": "",
+      "imageMobile": "",
+      "link": "https://teenxgrailed.com"
+    },
+    {
+      "title": "site for restaurant",
+      "description": "design + build",
+      "imageDesktop": "",
+      "imageMobile": "",
+      "link": ""
+    },
+    {
+      "title": "portfolio landing",
+      "description": "single-page concept",
+      "imageDesktop": "",
+      "imageMobile": "",
+      "link": ""
+    },
+    {
+      "title": "shop front",
+      "description": "storefront layout",
+      "imageDesktop": "",
+      "imageMobile": "",
+      "link": ""
+    }
+  ]
+}

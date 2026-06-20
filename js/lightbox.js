@@ -34,6 +34,19 @@
   const counterEl = lb.querySelector(".lb__counter");
 
   function makeMedia(el) {
+    const video = el.getAttribute("data-video");
+    if (video) {
+      const v = document.createElement("video");
+      v.className = "lb__media";
+      v.src = video;
+      v.controls = true;
+      v.autoplay = true;
+      v.playsInline = true;
+      v.setAttribute("aria-label", el.getAttribute("data-caption") || "video");
+      const poster = el.getAttribute("data-full");
+      if (poster) v.poster = poster;
+      return v;
+    }
     const full = el.getAttribute("data-full");
     if (full) {
       const img = document.createElement("img");
