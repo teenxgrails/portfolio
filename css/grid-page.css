@@ -58,7 +58,7 @@
 .shots--desktop-first { justify-content: flex-start; }
 .shots--mobile-first { justify-content: center; align-items: center; }
 .shots--solo { justify-content: center; }
-.shots .media--desktop { flex: 1 1 auto; aspect-ratio: 16 / 10; border-radius: 14px; }
+.shots .media--desktop { flex: 1 1 auto; aspect-ratio: 16 / 10; border-radius: 0; }
 .shots--solo .media--desktop { width: min(100%, 1400px); }
 
 .project__cap { margin-top: 22px; font-size: var(--fs-body); }
@@ -66,9 +66,11 @@
 .project__cap.is-center { text-align: center; }
 .project__title { font-weight: 500; }
 
-/* ---- videos page ---- */
-.videos { display: flex; flex-direction: column; gap: clamp(48px, 7vw, 110px); }
-.film .media--film { width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; }
+/* ---- videos page: full-bleed clips, generous gap for captions ---- */
+.page--full { max-width: none; padding-inline: clamp(8px, 1vw, 16px); }
+.videos { display: flex; flex-direction: column; gap: clamp(56px, 8vw, 130px); }
+.film .media--film { width: 100%; aspect-ratio: 16 / 9; border-radius: 0; }
+.page--full .film .project__cap { padding-inline: clamp(8px, 1vw, 12px); margin-top: 18px; }
 
 /* ---- designs: composite diagram ---- */
 .composite {
