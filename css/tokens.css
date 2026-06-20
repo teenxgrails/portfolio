@@ -1,4 +1,36 @@
 /* tokens.css — design tokens (luxury-fashion / ERD direction) */
+
+/* Self-hosted Helvetica Neue (same typeface ERD & specialoffer.inc ship).
+   Medium is the primary weight; Bold for emphasis, Roman for fine print. */
+@font-face {
+  font-family: "Helvetica Neue LT";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/HelveticaNeueRoman.otf") format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/HelveticaNeueMedium.otf") format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/HelveticaNeueMediumItalic.otf") format("opentype");
+}
+@font-face {
+  font-family: "Helvetica Neue LT";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/HelveticaNeueBold.otf") format("opentype");
+}
+
 :root {
   --color-base: #000000;
   --color-text: #ffffff;
@@ -6,9 +38,8 @@
   --color-divider: #1a1a1c;
   --color-placeholder: #0e0e10;
 
-  /* Helvetica Neue Medium, tight tracking. No webfont bundled (licensed) —
-     renders true Helvetica Neue on Apple, Helvetica/Arial elsewhere. */
-  --font: "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+  /* Helvetica Neue Medium, self-hosted (see @font-face above), tight tracking. */
+  --font: "Helvetica Neue LT", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --fw: 500;
 
   --fs-email: clamp(26px, 5.5vw, 64px);
