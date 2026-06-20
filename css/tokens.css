@@ -1,0 +1,18 @@
+/* tokens.css — design tokens */
+:root {
+  --color-base: #000000;
+  --color-text: #ffffff;
+  --color-text-muted: #86868b;
+  --color-accent: #0066cc;
+  --color-divider: #1d1d1f;
+  --font: system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --fs-email: clamp(28px, 6vw, 72px);
+  --fs-label: 13px;
+  --fs-body: 15px;
+  --content-max: 1600px;
+
+  /* motion */
+  --ease-page: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-page: 600ms;
+  --space: clamp(20px, 4vw, 64px);
+}
