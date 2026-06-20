@@ -1,24 +1,37 @@
-/* transitions.js — page transitions via View Transitions API with a
- * fetch + swap fallback. Fade + scale (out -> 0.96, in <- 1.04), 600ms.
- * Intercepts same-origin links marked [data-transition].
- * Reduced motion: plain navigation (no animation).
+/* transitions.js — page transitions for this multi-page site.
+ *
+ * Primary: cross-document View Transitions (CSS opt-in below) — the browser
+ * captures old/new snapshots across the navigation and runs the fade + scale
+ * keyframes (out -> 0.96, in <- 1.04, 600ms). Supported browsers get it for
+ * free on any same-origin navigation.
+ *
+ * Fallback: browsers without cross-document VT just navigate normally. We add
+ * a brief outgoing fade so the transition still reads, then let the full page
+ * load handle the incoming side. This is more reliable than a script-rerun
+ * fetch+swap given every page boots its own module scripts.
+ *
+ * Reduced motion: no opt-in, no fade — plain navigation.
  */
 (function () {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const supportsVT = "startViewTransition" in document;
+  const supportsCrossDocVT =
+    "startViewTransition" in document &&
+    CSS && CSS.supports && CSS.supports("view-transition-name: none");
 
-  // inject transition keyframes for VT pseudo-elements
-  if (supportsVT && !reduce) {
+  if (!reduce) {
     const style = document.createElement("style");
     style.textContent = `
+      @view-transition { navigation: auto; }
       @keyframes ete-out { to { opacity: 0; transform: scale(0.96); } }
       @keyframes ete-in  { from { opacity: 0; transform: scale(1.04); } }
       ::view-transition-old(root) {
-        animation: ete-out var(--dur-page, 600ms) var(--ease-page, cubic-bezier(0.65,0,0.35,1)) both;
+        animation: ete-out var(--dur-page,600ms) var(--ease-page,cubic-bezier(0.65,0,0.35,1)) both;
       }
       ::view-transition-new(root) {
-        animation: ete-in var(--dur-page, 600ms) var(--ease-page, cubic-bezier(0.65,0,0.35,1)) both;
-      }`;
+        animation: ete-in var(--dur-page,600ms) var(--ease-page,cubic-bezier(0.65,0,0.35,1)) both;
+      }
+      html.is-leaving { opacity: 0; transform: scale(0.98);
+        transition: opacity .28s var(--ease-page), transform .28s var(--ease-page); }`;
     document.head.appendChild(style);
   }
 
@@ -28,18 +41,11 @@
   }
 
   function go(url) {
-    if (reduce) { location.href = url; return; }
-    if (supportsVT) {
-      document.startViewTransition(() => {
-        return new Promise((resolve) => {
-          // navigate after capturing old snapshot
-          window.addEventListener("pagehide", resolve, { once: true });
-          location.href = url;
-        });
-      });
-    } else {
-      location.href = url; // simple, robust fallback
-    }
+    // Cross-document VT browsers animate natively on navigation — just go.
+    if (reduce || supportsCrossDocVT) { location.href = url; return; }
+    // Fallback: quick outgoing fade, then navigate.
+    document.documentElement.classList.add("is-leaving");
+    setTimeout(() => { location.href = url; }, 260);
   }
 
   document.addEventListener("click", (e) => {
