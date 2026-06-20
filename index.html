@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ete23.com</title>
+  <meta name="description" content="été23 — websites, programs, videos and designs." />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+  <main class="dash">
+    <nav class="dash__grid" aria-label="Categories">
+
+      <a class="block block--websites" href="websites.html" data-transition data-cursor-label="Open" data-reveal>
+        <span class="block__media">
+          <div class="placeholder" data-dim="WEBSITES LOOP · 1920×720"></div>
+          <!-- <video autoplay loop muted playsinline preload="metadata"
+                  poster="assets/videos/websites.jpg" data-autoplay>
+             <source src="assets/videos/websites.mp4" type="video/mp4" />
+           </video> -->
+        </span>
+        <span class="block__archive" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="block__label"><span class="glyph" data-i18n="cat_websites">Websites</span><span aria-hidden="true">→</span></span>
+      </a>
+
+      <a class="block block--programs" href="programs.html" data-transition data-cursor-label="Open" data-reveal>
+        <span class="block__media">
+          <div class="placeholder" data-dim="PROGRAMS LOOP · 960×1200"></div>
+        </span>
+        <span class="block__archive" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="block__label"><span class="glyph" data-i18n="cat_programs">Programs</span><span aria-hidden="true">→</span></span>
+      </a>
+
+      <a class="block block--videos" href="videos.html" data-transition data-cursor-label="Open" data-reveal>
+        <span class="block__media">
+          <div class="placeholder" data-dim="VIDEOS LOOP · 960×1200"></div>
+        </span>
+        <span class="block__archive" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="block__label"><span class="glyph" data-i18n="cat_videos">Videos</span><span aria-hidden="true">→</span></span>
+      </a>
+
+      <a class="block block--designs" href="designs.html" data-transition data-cursor-label="Open" data-reveal>
+        <span class="block__media">
+          <div class="placeholder" data-dim="DESIGNS LOOP · 960×1200"></div>
+        </span>
+        <span class="block__archive" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="block__label"><span class="glyph" data-i18n="cat_designs">Designs</span><span aria-hidden="true">→</span></span>
+      </a>
+
+    </nav>
+
+    <section class="dash__hero">
+      <a class="hero-email" href="mailto:maksym@ete23.com" data-hero-scale data-cursor-label="Mail">maksym@ete23.com</a>
+    </section>
+    <footer class="dash__footer">été23</footer>
+  </main>
+
+  <!-- dashboard video play/pause when >=50% in view -->
+  <script>
+    (function () {
+      var vids = document.querySelectorAll("video[data-autoplay]");
+      if (!vids.length || !("IntersectionObserver" in window)) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting && e.intersectionRatio >= 0.5) {
+            var p = v.play(); if (p && p.catch) p.catch(function () {});
+          } else { v.pause(); }
+        });
+      }, { threshold: [0, 0.5, 1] });
+      vids.forEach(function (v) { io.observe(v); });
+    })();
+  </script>
+
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/scroll-smooth.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/reveal.js"></script>
+  <script src="js/hero-scale.js"></script>
+  <script src="js/transitions.js"></script>
+</body>
+</html>

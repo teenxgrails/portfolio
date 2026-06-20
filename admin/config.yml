@@ -1,0 +1,73 @@
+backend:
+  name: github
+  repo: teenxgrails/portfolio
+  branch: main
+  # base_url: https://YOUR-OAUTH-PROXY.vercel.app   # set after deploying the OAuth proxy (see README)
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+  - name: "websites"
+    label: "Websites"
+    files:
+      - file: "data/websites.json"
+        name: "websites"
+        label: "Websites list"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Desktop image", name: "imageDesktop", widget: "image", required: false }
+              - { label: "Mobile image", name: "imageMobile", widget: "image", required: false }
+              - { label: "Link", name: "link", widget: "string", required: false }
+
+  - name: "programs"
+    label: "Programs"
+    files:
+      - file: "data/programs.json"
+        name: "programs"
+        label: "Programs list"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Desktop image", name: "imageDesktop", widget: "image", required: false }
+              - { label: "Mobile image", name: "imageMobile", widget: "image", required: false }
+              - { label: "Link", name: "link", widget: "string", required: false }
+
+  - name: "videos"
+    label: "Videos"
+    files:
+      - file: "data/videos.json"
+        name: "videos"
+        label: "Videos list"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Poster image", name: "poster", widget: "image", required: false }
+              - { label: "Video URL", name: "videoUrl", widget: "string", required: false }
+
+  - name: "designs"
+    label: "Designs"
+    files:
+      - file: "data/designs.json"
+        name: "designs"
+        label: "Designs list"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Image", name: "image", widget: "image", required: false }
