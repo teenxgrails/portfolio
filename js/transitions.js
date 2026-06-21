@@ -17,7 +17,7 @@
     "background:radial-gradient(ellipse at center,#0c0c0c 0%,#000 70%);" +
     "transition:opacity " + DUR + "ms ease}" +
     ".curtain.is-on{opacity:1}" +
-    ".curtain__mark{font-family:var(--font);font-weight:500;text-transform:uppercase;" +
+    ".curtain__mark{font-family:var(--font);font-weight:500;" +
     "letter-spacing:.12em;font-size:clamp(22px,5vw,54px);color:#fff;" +
     "opacity:0;transform:scale(.96);" +
     "transition:opacity .5s ease .08s,transform " + (DUR + 160) + "ms ease}" +

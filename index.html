@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/css/reset.css" />
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/grid-page.css" />
   <link rel="stylesheet" href="/css/dashboard.css" />
 </head>
 <body>
@@ -29,11 +30,11 @@
 
       <a class="tile tile--programs" href="/programs" data-transition data-reveal>
         <span class="tile__media tile__media--phone">
-          <span class="dash-phone">
+          <div class="phone"><div class="phone__screen"><div class="media media--mobile">
             <video autoplay loop muted playsinline preload="metadata" data-autoplay>
               <source src="/assets/programs/budget/mobile.mp4" type="video/mp4" />
             </video>
-          </span>
+          </div></div></div>
         </span>
         <span class="tile__label">
           <span class="tile__name" data-i18n="cat_programs">Programs</span>
@@ -69,7 +70,7 @@
       <div class="hero-inner">
         <div class="hero-pos">
           <button class="hero-email" id="hero-email" type="button"
-                  aria-label="Copy maksym@ete23.com to clipboard">maksym@ete23.com</button>
+                  aria-label="Copy contact@ete23.com to clipboard">contact@ete23.com</button>
         </div>
         <span class="hero-copied" id="hero-copied" aria-hidden="true">copied</span>
       </div>
@@ -107,7 +108,7 @@
         setInterval(function () {
           var next = imgs[Math.floor(Math.random() * imgs.length)];
           if (next && next !== img.getAttribute("src")) img.src = next;
-        }, 2000);
+        }, 1500);
       }).catch(function () {});
     })();
   </script>
@@ -122,20 +123,21 @@
       if (!hero || !pos || !el) return;
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      // scroll-driven: small + raised -> large + centered
+      // scroll-driven: small + raised -> large + centered (fast ease-out)
       function frame() {
         var total = hero.offsetHeight - window.innerHeight;
         var scrolled = Math.min(Math.max(-hero.getBoundingClientRect().top, 0), total);
         var p = total > 0 ? scrolled / total : 1;
-        el.style.setProperty("--hp", (0.16 + 0.84 * p).toFixed(3));
-        pos.style.setProperty("--ht", (-34 * (1 - p)).toFixed(2) + "vh");
+        var pe = 1 - Math.pow(1 - p, 2);          // ease-out: grows quickly
+        el.style.setProperty("--hp", (0.22 + 0.78 * pe).toFixed(3));
+        pos.style.setProperty("--ht", (-44 * (1 - pe)).toFixed(2) + "vh");
         raf = requestAnimationFrame(frame);
       }
       var raf;
       if (reduce) { el.style.setProperty("--hp", "1"); pos.style.setProperty("--ht", "0vh"); }
       else raf = requestAnimationFrame(frame);
 
-      // click to copy + tiny "copied" pulse
+      // click to copy + tiny "copied" pulse; cursor flips to progress briefly
       var resetTimer;
       el.addEventListener("click", function () {
         function done() {
@@ -148,7 +150,7 @@
           }, 1400);
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText("maksym@ete23.com").then(done, done);
+          navigator.clipboard.writeText("contact@ete23.com").then(done, done);
         } else { done(); }
       });
     })();
