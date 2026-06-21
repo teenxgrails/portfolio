@@ -74,7 +74,7 @@
   function renderDesigns(data) {
     ROOT.classList.add("designs-grid");
     ROOT.setAttribute("data-lightbox-group", "");
-    ROOT.innerHTML = (data.items || []).map((it, i) => {
+    ROOT.innerHTML = (data.items || []).slice().reverse().map((it, i) => {
       const cap = it.title ? ` data-caption="${esc(it.title)}"` : "";
       const delay = Math.min(i, 24) * 40; // cap the stagger so later rows don't lag
       return `<button class="cell" type="button" style="--d:${delay}ms" data-lightbox data-full="${esc(it.image)}"${cap}

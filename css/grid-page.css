@@ -64,9 +64,9 @@
 /* ---- designs: composite diagram (animated dashed "marching ants") ---- */
 .composite {
   position: relative;
-  max-width: 720px;
-  margin: 4px 0 clamp(28px, 4vw, 56px);
-  padding-inline: clamp(10px, 1.4vw, 18px);
+  max-width: 600px;
+  margin: 8px auto clamp(24px, 4vw, 48px);
+  padding-inline: clamp(12px, 2vw, 20px);
 }
 .composite svg { width: 100%; height: auto; display: block; }
 .composite .ants {
@@ -83,16 +83,17 @@
 }
 @keyframes ants { to { stroke-dashoffset: -14; } }
 
-/* small caption: what these designs are for */
+/* caption: what these designs are for (centered) */
 .designs-types {
-  padding-inline: clamp(10px, 1.4vw, 18px);
-  margin-bottom: 14px;
-  max-width: 720px;
+  margin: 0 auto clamp(18px, 3vw, 30px);
+  max-width: 760px;
+  padding-inline: 18px;
+  text-align: center;
   font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--color-text-muted);
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 @media (prefers-reduced-motion: reduce) { .composite .ants { animation: none; } }
