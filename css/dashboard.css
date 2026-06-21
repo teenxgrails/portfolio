@@ -22,9 +22,10 @@
 }
 .tile__media { display: block; width: 100%; height: 100%; }
 .tile--websites .tile__media { aspect-ratio: 24 / 9; }
+/* category tiles are square */
 .tile--programs .tile__media,
 .tile--videos .tile__media,
-.tile--designs .tile__media { aspect-ratio: 3 / 4; }
+.tile--designs .tile__media { aspect-ratio: 1 / 1; }
 
 .tile__media video,
 .tile__media img {
@@ -35,6 +36,46 @@
 }
 .tile:hover .tile__media video,
 .tile:hover .tile__media img { opacity: 0.78; }
+
+/* ---- programs tile: iPhone 17 Pro mockup with the mobile clip ---- */
+.tile--programs { background: #000; }
+.tile__media--phone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  padding: 7% 0;
+}
+.dash-phone {
+  height: 100%;
+  aspect-ratio: 9 / 19.5;
+  position: relative;
+  background: #050506;
+  border: 1px solid #242428;
+  border-radius: 13% / 6.2%;
+  padding: 2.4%;
+  box-shadow: inset 0 0 0 2px #000, 0 22px 50px rgba(0,0,0,0.55);
+}
+.dash-phone::before {              /* dynamic island */
+  content: "";
+  position: absolute;
+  top: 3.2%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 3%;
+  background: #000;
+  border-radius: 100px;
+  z-index: 2;
+}
+.dash-phone video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 11% / 5%;
+  transition: opacity 0.6s var(--ease);
+}
+.tile:hover .dash-phone video { opacity: 0.78; }
 
 /* bottom-left minimal label */
 .tile__label {
@@ -88,5 +129,6 @@
   .tile--programs { grid-column: 1 / 2; }
   .tile--videos   { grid-column: 2 / 3; }
   .tile--designs  { grid-column: 1 / -1; }
-  .tile--designs .tile__media { aspect-ratio: 16 / 9; }
+  /* keep category tiles square on mobile too */
+  .tile--designs .tile__media { aspect-ratio: 1 / 1; }
 }
