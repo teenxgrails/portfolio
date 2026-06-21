@@ -74,9 +74,10 @@
   function renderDesigns(data) {
     ROOT.classList.add("designs-grid");
     ROOT.setAttribute("data-lightbox-group", "");
-    ROOT.innerHTML = (data.items || []).map((it) => {
+    ROOT.innerHTML = (data.items || []).map((it, i) => {
       const cap = it.title ? ` data-caption="${esc(it.title)}"` : "";
-      return `<button class="cell" type="button" data-lightbox data-full="${esc(it.image)}"${cap}
+      const delay = Math.min(i, 24) * 40; // cap the stagger so later rows don't lag
+      return `<button class="cell" type="button" style="--d:${delay}ms" data-lightbox data-full="${esc(it.image)}"${cap}
                 aria-label="${esc(it.title || "Open design")}">
         <img src="${esc(it.image)}" alt="${esc(it.title || "")}" loading="lazy" />
       </button>`;
