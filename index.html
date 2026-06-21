@@ -130,7 +130,7 @@
         var p = total > 0 ? scrolled / total : 1;
         var pe = 1 - Math.pow(1 - p, 2);          // ease-out: grows quickly
         el.style.setProperty("--hp", (0.22 + 0.78 * pe).toFixed(3));
-        pos.style.setProperty("--ht", (-44 * (1 - pe)).toFixed(2) + "vh");
+        pos.style.setProperty("--ht", (44 * (1 - pe)).toFixed(2) + "vh");
         raf = requestAnimationFrame(frame);
       }
       var raf;

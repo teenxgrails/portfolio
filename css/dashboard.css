@@ -90,7 +90,7 @@
   justify-content: center;
   overflow: hidden;
 }
-.hero-pos { transform: translateY(var(--ht, -44vh)); will-change: transform; }
+.hero-pos { transform: translateY(var(--ht, 44vh)); will-change: transform; }
 .hero-email {
   font-family: var(--font);            /* same face as ERD, lowercase */
   font-size: clamp(34px, 9vw, 120px);
@@ -101,14 +101,13 @@
   line-height: 1;
   color: var(--color-text);
   background: none; border: 0; padding: 0;
-  cursor: copy;                        /* copy cursor — clicking copies */
   transform: scale(var(--hp, 0.22));
   transform-origin: center center;
   will-change: transform;
   transition: opacity 0.3s var(--ease);
 }
 .hero-email:hover { opacity: 0.7; }
-.hero-email.is-copied { animation: copied-pulse 0.5s var(--ease); cursor: progress; }
+.hero-email.is-copied { animation: copied-pulse 0.5s var(--ease); }
 @keyframes copied-pulse { 0%, 100% { filter: none; } 50% { filter: brightness(1.7); } }
 .hero-copied {
   position: absolute;
