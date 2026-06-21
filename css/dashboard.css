@@ -37,7 +37,7 @@
 .tile:hover .tile__media video,
 .tile:hover .tile__media img { opacity: 0.78; }
 
-/* ---- programs tile: iPhone mockup with the mobile clip (no dynamic island) ---- */
+/* ---- programs tile: the SAME iPhone mockup as inner pages (no island) ---- */
 .tile--programs { background: #000; }
 .tile__media--phone {
   display: flex;
@@ -46,24 +46,8 @@
   background: #000;
   padding: 7% 0;
 }
-.dash-phone {
-  height: 100%;
-  aspect-ratio: 9 / 19.3;
-  position: relative;
-  background: #050506;
-  border: 1px solid #1f1f22;
-  border-radius: 13% / 6%;
-  padding: 2.4%;
-  box-shadow: inset 0 0 0 2px #000, 0 22px 50px rgba(0,0,0,0.55);
-}
-.dash-phone video {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 11% / 5%;
-  transition: opacity 0.6s var(--ease);
-}
-.tile--programs:hover .dash-phone video { opacity: 0.85; }
+.tile--programs .phone { --pw: 13vw; }
+.tile--programs:hover .phone video { opacity: 0.85; }
 
 /* ---- tile label: ERD arrow-link — name, diagonal arrow scales in on hover ---- */
 .tile__label {
@@ -95,7 +79,7 @@
 
 /* ---- bottom contact + hint ---- */
 /* tall scroll area; the contact line is pinned and grows/centres on scroll */
-.dash__hero { position: relative; height: 200vh; }
+.dash__hero { position: relative; height: 140vh; }
 .hero-inner {
   position: sticky;
   top: 0;
@@ -106,7 +90,7 @@
   justify-content: center;
   overflow: hidden;
 }
-.hero-pos { transform: translateY(var(--ht, -34vh)); will-change: transform; }
+.hero-pos { transform: translateY(var(--ht, -44vh)); will-change: transform; }
 .hero-email {
   font-family: var(--font);            /* same face as ERD, lowercase */
   font-size: clamp(34px, 9vw, 120px);
@@ -117,14 +101,14 @@
   line-height: 1;
   color: var(--color-text);
   background: none; border: 0; padding: 0;
-  cursor: pointer;
-  transform: scale(var(--hp, 0.16));
+  cursor: copy;                        /* copy cursor — clicking copies */
+  transform: scale(var(--hp, 0.22));
   transform-origin: center center;
   will-change: transform;
   transition: opacity 0.3s var(--ease);
 }
 .hero-email:hover { opacity: 0.7; }
-.hero-email.is-copied { animation: copied-pulse 0.5s var(--ease); }
+.hero-email.is-copied { animation: copied-pulse 0.5s var(--ease); cursor: progress; }
 @keyframes copied-pulse { 0%, 100% { filter: none; } 50% { filter: brightness(1.7); } }
 .hero-copied {
   position: absolute;
@@ -156,6 +140,7 @@
   .tile--designs  { grid-column: 2 / 3; }
   .tile--websites .tile__media { aspect-ratio: 16 / 11; }
   .tile--programs .tile__media { aspect-ratio: 1 / 1; }
+  .tile--programs .phone { --pw: 42vw; }
   .tile--videos .tile__media,
   .tile--designs .tile__media { aspect-ratio: 1 / 1; }
 }
