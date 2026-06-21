@@ -71,8 +71,8 @@
         <div class="hero-pos">
           <button class="hero-email" id="hero-email" type="button"
                   aria-label="Copy contact@ete23.com to clipboard">contact@ete23.com</button>
+          <span class="hero-copied" id="hero-copied" aria-hidden="true">copied</span>
         </div>
-        <span class="hero-copied" id="hero-copied" aria-hidden="true">copied</span>
       </div>
     </section>
     <footer class="dash__footer">été23</footer>
@@ -116,25 +116,25 @@
   <!-- bottom contact: grows + centers on scroll; click copies with a small pulse -->
   <script>
     (function () {
-      var hero = document.querySelector(".dash__hero");
+      var dash = document.querySelector(".dash");
       var pos = document.querySelector(".hero-pos");
       var el = document.getElementById("hero-email");
       var copied = document.getElementById("hero-copied");
-      if (!hero || !pos || !el) return;
+      if (!dash || !pos || !el) return;
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      // scroll-driven: small + raised -> large + centered (fast ease-out)
+      // grows from the very first scroll (no dead zone); top-anchored so it
+      // expands downward from under the tiles, pinned until full size, then frees
       function frame() {
-        var total = hero.offsetHeight - window.innerHeight;
-        var scrolled = Math.min(Math.max(-hero.getBoundingClientRect().top, 0), total);
-        var p = total > 0 ? scrolled / total : 1;
-        var pe = 1 - Math.pow(1 - p, 2);          // ease-out: grows quickly
-        el.style.setProperty("--hp", (0.22 + 0.78 * pe).toFixed(3));
-        pos.style.setProperty("--ht", (44 * (1 - pe)).toFixed(2) + "vh");
+        var scrolled = Math.max(0, -dash.getBoundingClientRect().top);
+        var grow = window.innerHeight;            // one viewport to reach full size
+        var p = Math.min(scrolled / grow, 1);
+        el.style.setProperty("--hp", (0.22 + 0.78 * p).toFixed(3));
+        pos.style.transform = "translateY(" + Math.min(scrolled, grow).toFixed(1) + "px)";
         raf = requestAnimationFrame(frame);
       }
       var raf;
-      if (reduce) { el.style.setProperty("--hp", "1"); pos.style.setProperty("--ht", "0vh"); }
+      if (reduce) { el.style.setProperty("--hp", "1"); pos.style.transform = "none"; }
       else raf = requestAnimationFrame(frame);
 
       // click to copy + tiny "copied" pulse; cursor flips to progress briefly
