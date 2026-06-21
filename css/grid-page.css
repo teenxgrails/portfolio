@@ -66,11 +66,11 @@
 .project__cap.is-center { text-align: center; }
 .project__title { font-weight: 500; }
 
-/* ---- videos page: full-bleed clips, generous gap for captions ---- */
-.page--full { max-width: none; padding-inline: clamp(8px, 1vw, 16px); }
+/* ---- full-bleed pages (videos, designs): no side padding around media ---- */
+.page--full { max-width: none; padding-inline: 0; }
 .videos { display: flex; flex-direction: column; gap: clamp(56px, 8vw, 130px); }
 .film .media--film { width: 100%; aspect-ratio: 16 / 9; border-radius: 0; }
-.page--full .film .project__cap { padding-inline: clamp(8px, 1vw, 12px); margin-top: 18px; }
+.page--full .film .project__cap { padding-inline: clamp(10px, 1.4vw, 18px); margin-top: 18px; }
 
 /* ---- designs: composite diagram ---- */
 .composite {
@@ -99,11 +99,11 @@
 .zone--avatar { grid-area: avatar; min-height: 150px; border-radius: 50% / 32%; }
 .zone--other  { grid-area: other; min-height: 190px; }
 
-/* ---- designs grid ---- */
+/* ---- designs grid (edge-to-edge mosaic, staggered fade-in, hover zoom) ---- */
 .designs-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
+  gap: 2px;
 }
 .cell {
   display: block;
@@ -111,9 +111,22 @@
   background: var(--color-placeholder);
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  animation: cell-in 0.7s var(--ease) both;
+  animation-delay: var(--d, 0ms);
 }
-.cell img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.5s var(--ease); }
-.cell:hover img { opacity: 0.72; }
+.cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+}
+.cell:hover img { opacity: 0.85; transform: scale(1.05); }
+
+@keyframes cell-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cell { animation: none; }
+}
 
 /* ---- responsive ---- */
 @media (max-width: 860px) {

@@ -1,0 +1,18 @@
+/* hero-fonts.css — extra display faces the hero email cycles through.
+   Loaded only on the index page. Self-hosted woff2 (Google Fonts). */
+@font-face { font-family: "Space Grotesk"; font-weight: 500; font-display: swap;
+  src: url("/assets/fonts/cycle/space-grotesk.woff2") format("woff2"); }
+@font-face { font-family: "Space Mono"; font-weight: 700; font-display: swap;
+  src: url("/assets/fonts/cycle/space-mono.woff2") format("woff2"); }
+@font-face { font-family: "Archivo"; font-weight: 700; font-display: swap;
+  src: url("/assets/fonts/cycle/archivo.woff2") format("woff2"); }
+@font-face { font-family: "DM Serif Display"; font-weight: 400; font-display: swap;
+  src: url("/assets/fonts/cycle/dm-serif-display.woff2") format("woff2"); }
+@font-face { font-family: "Unbounded"; font-weight: 600; font-display: swap;
+  src: url("/assets/fonts/cycle/unbounded.woff2") format("woff2"); }
+@font-face { font-family: "Bricolage Grotesque"; font-weight: 700; font-display: swap;
+  src: url("/assets/fonts/cycle/bricolage-grotesque.woff2") format("woff2"); }
+@font-face { font-family: "Oswald"; font-weight: 600; font-display: swap;
+  src: url("/assets/fonts/cycle/oswald.woff2") format("woff2"); }
+@font-face { font-family: "Syne"; font-weight: 700; font-display: swap;
+  src: url("/assets/fonts/cycle/syne.woff2") format("woff2"); }
