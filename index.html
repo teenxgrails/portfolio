@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/css/reset.css" />
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/grid-page.css" />
   <link rel="stylesheet" href="/css/dashboard.css" />
   <link rel="stylesheet" href="/css/hero-fonts.css" />
 </head>
@@ -19,21 +20,27 @@
       <a class="tile tile--websites" href="/websites" data-transition data-reveal>
         <span class="tile__media">
           <video autoplay loop muted playsinline preload="metadata" data-autoplay>
-            <source src="/assets/videos/teenxgrailed1.mp4" type="video/mp4" />
+            <source src="/assets/videos/websites/teenxgrailed2025/dekstop.mp4" type="video/mp4" />
           </video>
         </span>
-        <span class="tile__label"><span data-i18n="cat_websites">Websites</span><i aria-hidden="true">→</i></span>
+        <span class="tile__label">
+          <span class="tile__name" data-i18n="cat_websites">Websites</span>
+          <i class="tile__arrow" aria-hidden="true">→</i>
+        </span>
       </a>
 
       <a class="tile tile--programs" href="/programs" data-transition data-reveal>
         <span class="tile__media tile__media--phone">
-          <span class="dash-phone">
+          <div class="phone"><div class="phone__screen"><div class="media media--mobile">
             <video autoplay loop muted playsinline preload="metadata" data-autoplay>
               <source src="/assets/programs/budget/mobile.mp4" type="video/mp4" />
             </video>
-          </span>
+          </div></div></div>
         </span>
-        <span class="tile__label"><span data-i18n="cat_programs">Programs</span><i aria-hidden="true">→</i></span>
+        <span class="tile__label">
+          <span class="tile__name" data-i18n="cat_programs">Programs</span>
+          <i class="tile__arrow" aria-hidden="true">→</i>
+        </span>
       </a>
 
       <a class="tile tile--videos" href="/videos" data-transition data-reveal>
@@ -42,20 +49,28 @@
             <source src="/assets/videos/teenxgrailed2.mp4" type="video/mp4" />
           </video>
         </span>
-        <span class="tile__label"><span data-i18n="cat_videos">Videos</span><i aria-hidden="true">→</i></span>
+        <span class="tile__label">
+          <span class="tile__name" data-i18n="cat_videos">Videos</span>
+          <i class="tile__arrow" aria-hidden="true">→</i>
+        </span>
       </a>
 
       <a class="tile tile--designs" href="/designs" data-transition data-reveal>
         <span class="tile__media">
           <img id="dash-designs" src="/assets/images/designs/061.jpg" alt="" loading="lazy" />
         </span>
-        <span class="tile__label"><span data-i18n="cat_designs">Designs</span><i aria-hidden="true">→</i></span>
+        <span class="tile__label">
+          <span class="tile__name">DESIGNS 2022–2023</span>
+          <i class="tile__arrow" aria-hidden="true">→</i>
+        </span>
       </a>
 
     </nav>
 
     <section class="dash__hero">
-      <a class="hero-email" id="hero-email" href="mailto:maksym@ete23.com">maksym@ete23.com</a>
+      <button class="hero-email" id="hero-email" type="button"
+              aria-label="Copy contact@ete23.com to clipboard">contact@ete23.com</button>
+      <span class="hero-hint" id="hero-hint" aria-hidden="true">click to copy</span>
     </section>
     <footer class="dash__footer">été23</footer>
   </main>
@@ -77,7 +92,7 @@
     })();
   </script>
 
-  <!-- designs tile: swap to a random design image every second -->
+  <!-- designs tile: swap to a random design image every 2 seconds -->
   <script>
     (function () {
       var img = document.getElementById("dash-designs");
@@ -85,38 +100,68 @@
       fetch("/data/designs.json").then(function (r) { return r.json(); }).then(function (data) {
         var imgs = (data.items || []).map(function (it) { return it.image; }).filter(Boolean);
         if (imgs.length < 2) return;
-        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (reduce) return;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         setInterval(function () {
           var next = imgs[Math.floor(Math.random() * imgs.length)];
           if (next && next !== img.getAttribute("src")) img.src = next;
-        }, 1000);
+        }, 2000);
       }).catch(function () {});
     })();
   </script>
 
-  <!-- hero email: cycle through display faces every 2s (text stays selectable/copyable) -->
+  <!-- bottom contact: cycle unusual faces (paused on hover), click to copy -->
   <script>
     (function () {
       var el = document.getElementById("hero-email");
+      var hint = document.getElementById("hero-hint");
       if (!el) return;
+      var EMAIL = "contact@ete23.com";
+
       var faces = [
         '"Helvetica Neue LT", Helvetica, Arial, sans-serif',
-        '"Space Grotesk", sans-serif',
-        '"Space Mono", monospace',
-        '"Archivo", sans-serif',
-        '"DM Serif Display", serif',
-        '"Unbounded", sans-serif',
-        '"Bricolage Grotesque", sans-serif',
-        '"Oswald", sans-serif',
+        '"Anton", sans-serif',
+        '"Bungee", sans-serif',
+        '"Monoton", sans-serif',
+        '"Pirata One", serif',
+        '"Rubik Mono One", monospace',
+        '"Rampart One", sans-serif',
+        '"Faster One", sans-serif',
+        '"Nosifer", sans-serif',
+        '"Megrim", sans-serif',
         '"Syne", sans-serif'
       ];
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      var i = 0;
-      setInterval(function () {
-        i = (i + 1) % faces.length;
-        el.style.fontFamily = faces[i];
-      }, 2000);
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var paused = false, i = 0;
+      el.addEventListener("mouseenter", function () { paused = true; });
+      el.addEventListener("mouseleave", function () { paused = false; });
+      if (!reduce) {
+        setInterval(function () {
+          if (paused) return;            // don't swap while hovering (no fl/ glitch)
+          i = (i + 1) % faces.length;
+          el.style.fontFamily = faces[i];
+        }, 2000);
+      }
+
+      var resetTimer;
+      el.addEventListener("click", function () {
+        function done() {
+          if (hint) hint.textContent = "copied";
+          el.classList.add("is-copied");
+          clearTimeout(resetTimer);
+          resetTimer = setTimeout(function () {
+            el.classList.remove("is-copied");
+            if (hint) hint.textContent = "click to copy";
+          }, 1600);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(EMAIL).then(done, done);
+        } else {
+          var r = document.createRange(); r.selectNodeContents(el);
+          var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+          try { document.execCommand("copy"); } catch (e) {}
+          done();
+        }
+      });
     })();
   </script>
 
