@@ -116,21 +116,22 @@
   <!-- bottom contact: grows + centers on scroll; click copies with a small pulse -->
   <script>
     (function () {
-      var dash = document.querySelector(".dash");
+      var hero = document.querySelector(".dash__hero");
       var pos = document.querySelector(".hero-pos");
       var el = document.getElementById("hero-email");
       var copied = document.getElementById("hero-copied");
-      if (!dash || !pos || !el) return;
+      if (!hero || !pos || !el) return;
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      // grows from the very first scroll (no dead zone); top-anchored so it
-      // expands downward from under the tiles, pinned until full size, then frees
+      // starts growing the moment it enters from the bottom; sticky keeps it on
+      // screen, so it scales up and drifts down to centre as you scroll
       function frame() {
-        var scrolled = Math.max(0, -dash.getBoundingClientRect().top);
-        var grow = window.innerHeight;            // one viewport to reach full size
-        var p = Math.min(scrolled / grow, 1);
+        var r = hero.getBoundingClientRect();
+        var vh = window.innerHeight;
+        var total = hero.offsetHeight - vh;
+        var p = Math.min(Math.max((vh - r.top) / (vh + total), 0), 1);
         el.style.setProperty("--hp", (0.22 + 0.78 * p).toFixed(3));
-        pos.style.transform = "translateY(" + Math.min(scrolled, grow).toFixed(1) + "px)";
+        pos.style.transform = "translateY(" + (-24 * (1 - p)).toFixed(2) + "vh)";
         raf = requestAnimationFrame(frame);
       }
       var raf;
