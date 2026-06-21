@@ -9,11 +9,19 @@
       "link": "https://teenxgrailed.com"
     },
     {
-      "title": "site for restaurant",
-      "description": "design + build",
+      "title": "teenxgrailed 2025",
+      "description": "full website creating",
+      "layout": "desktop-mobile",
+      "desktopVideo": "/assets/videos/websites/teenxgrailed2025/dekstop.mp4",
+      "mobileVideo": "/assets/videos/websites/teenxgrailed2025/mobile.mp4",
+      "link": ""
+    },
+    {
+      "title": "budget",
+      "description": "full website creating",
       "layout": "mobile-desktop",
-      "desktopVideo": "",
-      "mobileVideo": "",
+      "desktopVideo": "/assets/videos/websites/budget/dekstop.mp4",
+      "mobileVideo": "/assets/videos/websites/budget/mobile.mp4",
       "link": ""
     }
   ]

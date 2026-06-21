@@ -1,7 +1,6 @@
 {
   "items": [
-    { "title": "edit 01", "description": "motion / edit", "video": "", "poster": "" },
-    { "title": "edit 02", "description": "music visual", "video": "", "poster": "" },
-    { "title": "edit 03", "description": "promo clip", "video": "", "poster": "" }
+    { "title": "teenxgrailed", "description": "edit", "video": "/assets/videos/teenxgrailed1.mp4", "poster": "" },
+    { "title": "teenxgrailed", "description": "edit", "video": "/assets/videos/teenxgrailed2.mp4", "poster": "" }
   ]
 }

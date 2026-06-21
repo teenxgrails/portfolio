@@ -7,14 +7,6 @@
       "desktopVideo": "/assets/programs/budget/dekstop.mp4",
       "mobileVideo": "/assets/programs/budget/mobile.mp4",
       "link": ""
-    },
-    {
-      "title": "in game customisation",
-      "description": "",
-      "layout": "desktop-only",
-      "desktopVideo": "",
-      "mobileVideo": "",
-      "link": ""
     }
   ]
 }
