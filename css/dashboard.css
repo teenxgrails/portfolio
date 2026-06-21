@@ -94,42 +94,50 @@
 .tile:hover .tile__arrow { opacity: 1; transform: scale(1); }
 
 /* ---- bottom contact + hint ---- */
-.dash__hero {
-  min-height: 70vh;
+/* tall scroll area; the contact line is pinned and grows/centres on scroll */
+.dash__hero { position: relative; height: 200vh; }
+.hero-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 18vh var(--space) 8vh;
+  overflow: hidden;
 }
+.hero-pos { transform: translateY(var(--ht, -34vh)); will-change: transform; }
 .hero-email {
-  font-family: var(--font);
-  font-size: var(--fs-email);
+  font-family: var(--font);            /* same face as ERD, lowercase */
+  font-size: clamp(34px, 9vw, 120px);
   font-weight: 500;
   letter-spacing: -0.03em;
-  text-transform: uppercase;
+  text-transform: none;
   white-space: nowrap;
-  max-width: 100%;
   line-height: 1;
   color: var(--color-text);
-  background: none;
-  border: 0;
-  padding: 0;
+  background: none; border: 0; padding: 0;
   cursor: pointer;
+  transform: scale(var(--hp, 0.16));
+  transform-origin: center center;
+  will-change: transform;
   transition: opacity 0.3s var(--ease);
 }
-.hero-email:hover { opacity: 0.6; }
-.hero-hint {
-  font-size: 11px;
+.hero-email:hover { opacity: 0.7; }
+.hero-email.is-copied { animation: copied-pulse 0.5s var(--ease); }
+@keyframes copied-pulse { 0%, 100% { filter: none; } 50% { filter: brightness(1.7); } }
+.hero-copied {
+  position: absolute;
+  bottom: 14%;
+  font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-text-muted);
   opacity: 0;
-  transition: opacity 0.3s var(--ease);
+  transform: translateY(6px);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.dash__hero:hover .hero-hint,
-.hero-email.is-copied + .hero-hint { opacity: 1; }
+.hero-copied.show { opacity: 1; transform: none; }
 .dash__footer {
   font-size: 11px;
   letter-spacing: 0.18em;
