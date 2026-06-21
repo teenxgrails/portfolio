@@ -37,45 +37,61 @@
 .tile:hover .tile__media video,
 .tile:hover .tile__media img { opacity: 0.78; }
 
-/* ---- programs tile: same iPhone mockup as the websites page ---- */
+/* ---- programs tile: iPhone mockup with the mobile clip (no dynamic island) ---- */
 .tile--programs { background: #000; }
 .tile__media--phone {
   display: flex;
   align-items: center;
   justify-content: center;
   background: #000;
-  padding: 6% 0;
+  padding: 7% 0;
 }
-.tile--programs .phone { width: auto; height: 90%; }
-.tile:hover .tile--programs .phone video,
-.tile--programs:hover .phone video { opacity: 0.85; }
+.dash-phone {
+  height: 100%;
+  aspect-ratio: 9 / 19.3;
+  position: relative;
+  background: #050506;
+  border: 1px solid #1f1f22;
+  border-radius: 13% / 6%;
+  padding: 2.4%;
+  box-shadow: inset 0 0 0 2px #000, 0 22px 50px rgba(0,0,0,0.55);
+}
+.dash-phone video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 11% / 5%;
+  transition: opacity 0.6s var(--ease);
+}
+.tile--programs:hover .dash-phone video { opacity: 0.85; }
 
-/* ---- tile label: name bottom-left, arrow bottom-right ---- */
+/* ---- tile label: ERD arrow-link — name, diagonal arrow scales in on hover ---- */
 .tile__label {
   position: absolute;
-  left: 0; right: 0; bottom: 0;
+  left: 18px; bottom: 16px;
   z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 18px 16px;
-  font-size: clamp(14px, 1.4vw, 22px);
+  display: inline-flex;
+  align-items: flex-start;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.25;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: #fff;
+  letter-spacing: 0.02em;
   mix-blend-mode: difference;
   pointer-events: none;
 }
 .tile__arrow {
-  font-style: normal;
-  display: inline-block;
-  transition: transform 0.45s var(--ease), opacity 0.35s var(--ease);
+  width: 12px; height: 12px;
+  margin-left: 8px; margin-top: 2px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-width='2'%3E%3Cpath d='M3.333 8H12M8 3.333 12.667 8 8 12.667'/%3E%3C/svg%3E") no-repeat center / 12px 12px;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: left center;
+  transition: opacity 0.3s cubic-bezier(0.57,0.06,0.05,0.95),
+              transform 0.3s cubic-bezier(0.57,0.06,0.05,0.95);
 }
-.tile:hover .tile__arrow { transform: translateX(6px); }
-/* websites: arrow only appears on hover; other tiles show it by default */
-.tile--websites .tile__arrow { opacity: 0; }
-.tile--websites:hover .tile__arrow { opacity: 1; }
+.tile:hover .tile__arrow { opacity: 1; transform: scale(1); }
 
 /* ---- bottom contact + hint ---- */
 .dash__hero {
