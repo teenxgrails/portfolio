@@ -78,15 +78,17 @@
 .tile:hover .tile__arrow { opacity: 1; transform: scale(1); }
 
 /* ---- bottom contact + hint ---- */
-/* contact sits small right under the tiles; as you scroll it grows downward
-   (top-anchored) and stays pinned, then scrolls away once full size */
-.dash__hero { position: relative; height: 180vh; }
+/* contact is pinned in the viewport (sticky) so it's always visible; it grows
+   and drifts down to centre as you scroll, then releases */
+.dash__hero { position: relative; height: 200vh; }
 .hero-inner {
-  position: absolute;
-  top: 0; left: 0; right: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .hero-pos {
   display: flex;
@@ -106,7 +108,7 @@
   color: var(--color-text);
   background: none; border: 0; padding: 0;
   transform: scale(var(--hp, 0.22));
-  transform-origin: top center;        /* grows downward from under the tiles */
+  transform-origin: center center;
   will-change: transform;
   transition: opacity 0.3s var(--ease);
 }
