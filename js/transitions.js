@@ -37,8 +37,7 @@
     cur.classList.add("is-on"); // opaque, no transition yet
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        cur.classList.remove("is-on"); // fade out
-        setTimeout(function () { cur.style.display = "none"; }, DUR + 80);
+        cur.classList.remove("is-on"); // fade out (stays in DOM, opacity:0)
       });
     });
   }
@@ -53,7 +52,7 @@
     var done = false;
     function go() { if (done) return; done = true; location.href = url; }
     cur.addEventListener("transitionend", function (e) {
-      if (e.propertyName === "opacity") go();
+      if (e.target === cur && e.propertyName === "opacity") go();
     });
     setTimeout(go, DUR + 160); // safety net
   }

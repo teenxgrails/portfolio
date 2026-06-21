@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/global.css" />
   <link rel="stylesheet" href="/css/dashboard.css" />
-  <link rel="stylesheet" href="/css/hero-fonts.css" />
 </head>
 <body>
   <main class="dash">
@@ -67,9 +66,13 @@
     </nav>
 
     <section class="dash__hero">
-      <button class="hero-email" id="hero-email" type="button"
-              aria-label="Copy contact@ete23.com to clipboard">contact@ete23.com</button>
-      <span class="hero-hint" id="hero-hint" aria-hidden="true">click to copy</span>
+      <div class="hero-inner">
+        <div class="hero-pos">
+          <button class="hero-email" id="hero-email" type="button"
+                  aria-label="Copy maksym@ete23.com to clipboard">maksym@ete23.com</button>
+        </div>
+        <span class="hero-copied" id="hero-copied" aria-hidden="true">copied</span>
+      </div>
     </section>
     <footer class="dash__footer">été23</footer>
   </main>
@@ -97,7 +100,8 @@
       var img = document.getElementById("dash-designs");
       if (!img) return;
       fetch("/data/designs.json").then(function (r) { return r.json(); }).then(function (data) {
-        var imgs = (data.items || []).map(function (it) { return it.image; }).filter(Boolean);
+        var imgs = (data.items || []).map(function (it) { return it.image; })
+          .filter(Boolean).reverse().slice(0, 20);   // last 20 designs
         if (imgs.length < 2) return;
         if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         setInterval(function () {
@@ -108,58 +112,44 @@
     })();
   </script>
 
-  <!-- bottom contact: cycle unusual faces (paused on hover), click to copy -->
+  <!-- bottom contact: grows + centers on scroll; click copies with a small pulse -->
   <script>
     (function () {
+      var hero = document.querySelector(".dash__hero");
+      var pos = document.querySelector(".hero-pos");
       var el = document.getElementById("hero-email");
-      var hint = document.getElementById("hero-hint");
-      if (!el) return;
-      var EMAIL = "contact@ete23.com";
-
-      var faces = [
-        '"Helvetica Neue LT", Helvetica, Arial, sans-serif',
-        '"Anton", sans-serif',
-        '"Bungee", sans-serif',
-        '"Monoton", sans-serif',
-        '"Pirata One", serif',
-        '"Rubik Mono One", monospace',
-        '"Rampart One", sans-serif',
-        '"Faster One", sans-serif',
-        '"Nosifer", sans-serif',
-        '"Megrim", sans-serif',
-        '"Syne", sans-serif'
-      ];
+      var copied = document.getElementById("hero-copied");
+      if (!hero || !pos || !el) return;
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      var paused = false, i = 0;
-      el.addEventListener("mouseenter", function () { paused = true; });
-      el.addEventListener("mouseleave", function () { paused = false; });
-      if (!reduce) {
-        setInterval(function () {
-          if (paused) return;            // don't swap while hovering (no fl/ glitch)
-          i = (i + 1) % faces.length;
-          el.style.fontFamily = faces[i];
-        }, 2000);
-      }
 
+      // scroll-driven: small + raised -> large + centered
+      function frame() {
+        var total = hero.offsetHeight - window.innerHeight;
+        var scrolled = Math.min(Math.max(-hero.getBoundingClientRect().top, 0), total);
+        var p = total > 0 ? scrolled / total : 1;
+        el.style.setProperty("--hp", (0.16 + 0.84 * p).toFixed(3));
+        pos.style.setProperty("--ht", (-34 * (1 - p)).toFixed(2) + "vh");
+        raf = requestAnimationFrame(frame);
+      }
+      var raf;
+      if (reduce) { el.style.setProperty("--hp", "1"); pos.style.setProperty("--ht", "0vh"); }
+      else raf = requestAnimationFrame(frame);
+
+      // click to copy + tiny "copied" pulse
       var resetTimer;
       el.addEventListener("click", function () {
         function done() {
-          if (hint) hint.textContent = "copied";
           el.classList.add("is-copied");
+          if (copied) copied.classList.add("show");
           clearTimeout(resetTimer);
           resetTimer = setTimeout(function () {
             el.classList.remove("is-copied");
-            if (hint) hint.textContent = "click to copy";
-          }, 1600);
+            if (copied) copied.classList.remove("show");
+          }, 1400);
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(EMAIL).then(done, done);
-        } else {
-          var r = document.createRange(); r.selectNodeContents(el);
-          var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-          try { document.execCommand("copy"); } catch (e) {}
-          done();
-        }
+          navigator.clipboard.writeText("maksym@ete23.com").then(done, done);
+        } else { done(); }
       });
     })();
   </script>
