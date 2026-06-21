@@ -1,43 +1,44 @@
-/* transitions.js — fashion page transition: a black curtain wipes up across
- * the navigation (covers the old page, then keeps rising to reveal the new one),
- * with the été23 wordmark flashing on the cover. One continuous vertical wipe.
+/* transitions.js — fashion page transition: the screen darkens with a vignette
+ * and the "Été23" wordmark, then the next page fades back in. A bit slower than
+ * a plain fade so it reads as a moment, not a flicker.
  *
- * Multi-page site: clicking a [data-transition] link plays the COVER half and
- * sets a flag; the next page reads the flag on load and plays the REVEAL half.
- * Reduced motion: plain navigation, no curtain.
+ * Multi-page site: a [data-transition] click plays the DARKEN half and sets a
+ * flag; the next page reads the flag on load and plays the REVEAL half.
+ * Reduced motion: plain navigation.
  */
 (function () {
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var DUR = 560;
+  var DUR = 640;
 
   var style = document.createElement("style");
   style.textContent =
-    ".curtain{position:fixed;inset:0;z-index:9999;background:#000;transform:translateY(100%);" +
-    "display:flex;align-items:center;justify-content:center;pointer-events:none;will-change:transform}" +
+    ".curtain{position:fixed;inset:0;z-index:9999;opacity:0;pointer-events:none;" +
+    "display:flex;align-items:center;justify-content:center;" +
+    "background:radial-gradient(ellipse at center,#0c0c0c 0%,#000 70%);" +
+    "transition:opacity " + DUR + "ms ease}" +
+    ".curtain.is-on{opacity:1}" +
     ".curtain__mark{font-family:var(--font);font-weight:500;text-transform:uppercase;" +
-    "letter-spacing:.04em;font-size:clamp(20px,4vw,42px);color:#fff;opacity:0;transition:opacity .3s ease}" +
-    ".curtain.is-cover{transform:translateY(0)}" +
-    ".curtain.is-up{transform:translateY(-100%)}" +
-    ".curtain.anim{transition:transform " + DUR + "ms cubic-bezier(.76,0,.24,1)}" +
-    ".curtain.is-cover .curtain__mark{opacity:1}";
+    "letter-spacing:.12em;font-size:clamp(22px,5vw,54px);color:#fff;" +
+    "opacity:0;transform:scale(.96);" +
+    "transition:opacity .5s ease .08s,transform " + (DUR + 160) + "ms ease}" +
+    ".curtain.is-on .curtain__mark{opacity:1;transform:scale(1)}";
   document.head.appendChild(style);
 
   var cur = document.createElement("div");
   cur.className = "curtain";
-  cur.innerHTML = '<span class="curtain__mark">été23</span>';
+  cur.innerHTML = '<span class="curtain__mark">Été23</span>';
   function mount() { document.body.appendChild(cur); }
   if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);
 
-  // REVEAL half — runs on load if we just navigated through the curtain.
+  // REVEAL — fade the darken away on load if we just navigated.
   function reveal() {
     if (!sessionStorage.getItem("ete-nav")) return;
     sessionStorage.removeItem("ete-nav");
-    cur.classList.add("is-cover"); // cover instantly (no transition yet)
+    cur.classList.add("is-on"); // opaque, no transition yet
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        cur.classList.add("anim", "is-up");
-        cur.classList.remove("is-cover");
-        setTimeout(function () { cur.className = "curtain"; }, DUR + 60);
+        cur.classList.remove("is-on"); // fade out
+        setTimeout(function () { cur.style.display = "none"; }, DUR + 80);
       });
     });
   }
@@ -45,15 +46,16 @@
     document.addEventListener("DOMContentLoaded", reveal);
   else reveal();
 
-  // COVER half — wipe up to cover, then navigate.
-  function cover(url) {
+  // DARKEN — fade to vignette, then navigate.
+  function darken(url) {
     sessionStorage.setItem("ete-nav", "1");
-    cur.classList.add("anim");
-    requestAnimationFrame(function () { cur.classList.add("is-cover"); });
+    requestAnimationFrame(function () { cur.classList.add("is-on"); });
     var done = false;
     function go() { if (done) return; done = true; location.href = url; }
-    cur.addEventListener("transitionend", go, { once: true });
-    setTimeout(go, DUR + 140); // safety net
+    cur.addEventListener("transitionend", function (e) {
+      if (e.propertyName === "opacity") go();
+    });
+    setTimeout(go, DUR + 160); // safety net
   }
 
   document.addEventListener("click", function (e) {
@@ -66,6 +68,6 @@
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     if (reduce) return; // plain navigation
     e.preventDefault();
-    cover(href);
+    darken(href);
   });
 })();
