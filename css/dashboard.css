@@ -1,4 +1,4 @@
-/* dashboard.css — ERD-minimal, full-bleed. The 4 video tiles are the nav. */
+/* dashboard.css — ERD-minimal, full-bleed. The 4 tiles are the nav. */
 
 .dash { min-height: 100vh; padding: 0; }
 
@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: minmax(0, auto);
-  gap: clamp(8px, 0.9vw, 16px);
+  gap: 0;                      /* no gaps between tiles */
   width: 100%;
 }
 .tile--websites { grid-column: 1 / -1; }
@@ -37,85 +37,83 @@
 .tile:hover .tile__media video,
 .tile:hover .tile__media img { opacity: 0.78; }
 
-/* ---- programs tile: iPhone 17 Pro mockup with the mobile clip ---- */
+/* ---- programs tile: same iPhone mockup as the websites page ---- */
 .tile--programs { background: #000; }
 .tile__media--phone {
   display: flex;
   align-items: center;
   justify-content: center;
   background: #000;
-  padding: 7% 0;
+  padding: 6% 0;
 }
-.dash-phone {
-  height: 100%;
-  aspect-ratio: 9 / 19.5;
-  position: relative;
-  background: #050506;
-  border: 1px solid #242428;
-  border-radius: 13% / 6.2%;
-  padding: 2.4%;
-  box-shadow: inset 0 0 0 2px #000, 0 22px 50px rgba(0,0,0,0.55);
-}
-.dash-phone::before {              /* dynamic island */
-  content: "";
-  position: absolute;
-  top: 3.2%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30%;
-  height: 3%;
-  background: #000;
-  border-radius: 100px;
-  z-index: 2;
-}
-.dash-phone video {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-  border-radius: 11% / 5%;
-  transition: opacity 0.6s var(--ease);
-}
-.tile:hover .dash-phone video { opacity: 0.78; }
+.tile--programs .phone { width: auto; height: 90%; }
+.tile:hover .tile--programs .phone video,
+.tile--programs:hover .phone video { opacity: 0.85; }
 
-/* bottom-left minimal label */
+/* ---- tile label: name bottom-left, arrow bottom-right ---- */
 .tile__label {
   position: absolute;
-  left: 16px; bottom: 14px;
+  left: 0; right: 0; bottom: 0;
   z-index: 2;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 7px;
-  font-size: var(--fs-label);
+  justify-content: space-between;
+  padding: 0 18px 16px;
+  font-size: clamp(14px, 1.4vw, 22px);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
   color: #fff;
   mix-blend-mode: difference;
+  pointer-events: none;
 }
-.tile__label i {
+.tile__arrow {
   font-style: normal;
   display: inline-block;
-  transition: transform 0.45s var(--ease);
+  transition: transform 0.45s var(--ease), opacity 0.35s var(--ease);
 }
-.tile:hover .tile__label i { transform: translateX(5px); }
+.tile:hover .tile__arrow { transform: translateX(6px); }
+/* websites: arrow only appears on hover; other tiles show it by default */
+.tile--websites .tile__arrow { opacity: 0; }
+.tile--websites:hover .tile__arrow { opacity: 1; }
 
-/* ---- hero email + footer ---- */
+/* ---- bottom contact + hint ---- */
 .dash__hero {
   min-height: 70vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 22vh var(--space) 8vh;
+  gap: 16px;
+  padding: 18vh var(--space) 8vh;
 }
 .hero-email {
+  font-family: var(--font);
   font-size: var(--fs-email);
   font-weight: 500;
   letter-spacing: -0.03em;
   text-transform: uppercase;
   white-space: nowrap;
+  max-width: 100%;
+  line-height: 1;
   color: var(--color-text);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
   transition: opacity 0.3s var(--ease);
 }
 .hero-email:hover { opacity: 0.6; }
+.hero-hint {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+}
+.dash__hero:hover .hero-hint,
+.hero-email.is-copied + .hero-hint { opacity: 1; }
 .dash__footer {
   font-size: 11px;
   letter-spacing: 0.18em;
@@ -125,12 +123,15 @@
   padding-bottom: var(--space);
 }
 
+/* ---- mobile: websites + programs are the big primary tiles ---- */
 @media (max-width: 720px) {
-  .dash__grid { grid-template-columns: repeat(2, 1fr); }
+  .dash__grid { grid-template-columns: repeat(2, 1fr); gap: 0; }
   .tile--websites { grid-column: 1 / -1; }
-  .tile--programs { grid-column: 1 / 2; }
-  .tile--videos   { grid-column: 2 / 3; }
-  .tile--designs  { grid-column: 1 / -1; }
-  /* keep category tiles square on mobile too */
+  .tile--programs { grid-column: 1 / -1; }
+  .tile--videos   { grid-column: 1 / 2; }
+  .tile--designs  { grid-column: 2 / 3; }
+  .tile--websites .tile__media { aspect-ratio: 16 / 11; }
+  .tile--programs .tile__media { aspect-ratio: 1 / 1; }
+  .tile--videos .tile__media,
   .tile--designs .tile__media { aspect-ratio: 1 / 1; }
 }

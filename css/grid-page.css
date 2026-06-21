@@ -19,34 +19,24 @@
 .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .media .placeholder { position: absolute; inset: 0; }
 
-/* ---- iPhone frame ---- */
+/* ---- iPhone frame (shared by inner pages + dashboard; no dynamic island) ----
+   Radii are percentage-based so the frame scales by width OR height. */
 .phone {
   --pw: 300px;
   width: var(--pw);
+  max-width: 100%;
   aspect-ratio: 9 / 19.3;
   flex: 0 0 auto;
   background: #050506;
   border: 1px solid #1f1f22;
-  border-radius: calc(var(--pw) * 0.16);
-  padding: calc(var(--pw) * 0.03);
+  border-radius: 12% / 5.6%;
+  padding: 2.6%;
   box-shadow: inset 0 0 0 2px #000, 0 30px 60px rgba(0,0,0,0.5);
   position: relative;
 }
-.phone::before {              /* dynamic island */
-  content: "";
-  position: absolute;
-  top: calc(var(--pw) * 0.045);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32%;
-  height: calc(var(--pw) * 0.06);
-  background: #000;
-  border-radius: 100px;
-  z-index: 2;
-}
 .phone__screen {
   width: 100%; height: 100%;
-  border-radius: calc(var(--pw) * 0.125);
+  border-radius: 9.4% / 4.4%;
   overflow: hidden;
   background: var(--color-placeholder);
 }
@@ -54,11 +44,11 @@
 
 /* ---- projects (websites / programs) ---- */
 .projects { display: flex; flex-direction: column; gap: clamp(64px, 9vw, 150px); }
-.shots { display: flex; align-items: flex-start; gap: clamp(24px, 4vw, 80px); }
+.shots { display: flex; align-items: center; gap: clamp(24px, 4vw, 80px); }
 .shots--desktop-first { justify-content: flex-start; }
 .shots--mobile-first { justify-content: center; align-items: center; }
 .shots--solo { justify-content: center; }
-.shots .media--desktop { flex: 1 1 auto; aspect-ratio: 16 / 10; border-radius: 0; }
+.shots .media--desktop { flex: 1 1 auto; aspect-ratio: 16 / 10; border-radius: 12px; }
 .shots--solo .media--desktop { width: min(100%, 1400px); }
 
 .project__cap { margin-top: 22px; font-size: var(--fs-body); }
@@ -72,32 +62,41 @@
 .film .media--film { width: 100%; aspect-ratio: 16 / 9; border-radius: 0; }
 .page--full .film .project__cap { padding-inline: clamp(10px, 1.4vw, 18px); margin-top: 18px; }
 
-/* ---- designs: composite diagram ---- */
+/* ---- designs: composite diagram (animated dashed "marching ants") ---- */
 .composite {
   position: relative;
-  max-width: 760px;
-  margin-bottom: clamp(48px, 7vw, 110px);
+  max-width: 720px;
+  margin: 4px 0 clamp(28px, 4vw, 56px);
+  padding-inline: clamp(10px, 1.4vw, 18px);
 }
-.composite__zones {
-  display: grid;
-  grid-template-columns: 0.9fr 1.6fr;
-  grid-template-areas: "avatar banner" "avatar other";
-  gap: 16px;
+.composite svg { width: 100%; height: auto; display: block; }
+.composite .ants {
+  fill: none;
+  stroke: rgba(255,255,255,0.6);
+  stroke-width: 1.5;
+  stroke-dasharray: 8 6;
+  animation: ants 1s linear infinite;
 }
-.zone {
-  position: relative;
-  border: 1.4px dashed rgba(255,255,255,0.55);
-  border-radius: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text);
-  font-size: var(--fs-body);
-  letter-spacing: -0.01em;
+.composite text {
+  fill: #fff;
+  font-size: 15px;
+  letter-spacing: 0.01em;
 }
-.zone--banner { grid-area: banner; min-height: 150px; }
-.zone--avatar { grid-area: avatar; min-height: 150px; border-radius: 50% / 32%; }
-.zone--other  { grid-area: other; min-height: 190px; }
+@keyframes ants { to { stroke-dashoffset: -14; } }
+
+/* small caption: what these designs are for */
+.designs-types {
+  padding-inline: clamp(10px, 1.4vw, 18px);
+  margin-bottom: 14px;
+  max-width: 720px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+@media (prefers-reduced-motion: reduce) { .composite .ants { animation: none; } }
 
 /* ---- designs grid (edge-to-edge mosaic, staggered fade-in, hover zoom) ---- */
 .designs-grid {
