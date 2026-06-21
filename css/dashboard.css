@@ -78,19 +78,23 @@
 .tile:hover .tile__arrow { opacity: 1; transform: scale(1); }
 
 /* ---- bottom contact + hint ---- */
-/* tall scroll area; the contact line is pinned and grows/centres on scroll */
-.dash__hero { position: relative; height: 140vh; }
+/* contact sits small right under the tiles; as you scroll it grows downward
+   (top-anchored) and stays pinned, then scrolls away once full size */
+.dash__hero { position: relative; height: 180vh; }
 .hero-inner {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  position: absolute;
+  top: 0; left: 0; right: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
 }
-.hero-pos { transform: translateY(var(--ht, 44vh)); will-change: transform; }
+.hero-pos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  will-change: transform;
+}
 .hero-email {
   font-family: var(--font);            /* same face as ERD, lowercase */
   font-size: clamp(34px, 9vw, 120px);
@@ -102,7 +106,7 @@
   color: var(--color-text);
   background: none; border: 0; padding: 0;
   transform: scale(var(--hp, 0.22));
-  transform-origin: center center;
+  transform-origin: top center;        /* grows downward from under the tiles */
   will-change: transform;
   transition: opacity 0.3s var(--ease);
 }
@@ -110,8 +114,6 @@
 .hero-email.is-copied { animation: copied-pulse 0.5s var(--ease); }
 @keyframes copied-pulse { 0%, 100% { filter: none; } 50% { filter: brightness(1.7); } }
 .hero-copied {
-  position: absolute;
-  bottom: 14%;
   font-size: 12px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
