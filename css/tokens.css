@@ -42,7 +42,7 @@
   --font: "Helvetica Neue LT", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --fw: 500;
 
-  --fs-email: clamp(26px, 5.5vw, 64px);
+  --fs-email: clamp(36px, 8.5vw, 116px);
   --fs-label: 12px;
   --fs-body: 16px;
   --content-max: 1840px;

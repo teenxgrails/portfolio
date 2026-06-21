@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/tokens.css" />
   <link rel="stylesheet" href="/css/global.css" />
   <link rel="stylesheet" href="/css/dashboard.css" />
+  <link rel="stylesheet" href="/css/hero-fonts.css" />
 </head>
 <body>
   <main class="dash">
@@ -54,7 +55,7 @@
     </nav>
 
     <section class="dash__hero">
-      <a class="hero-email" href="mailto:maksym@ete23.com">maksym@ete23.com</a>
+      <a class="hero-email" id="hero-email" href="mailto:maksym@ete23.com">maksym@ete23.com</a>
     </section>
     <footer class="dash__footer">été23</footer>
   </main>
@@ -91,6 +92,31 @@
           if (next && next !== img.getAttribute("src")) img.src = next;
         }, 1000);
       }).catch(function () {});
+    })();
+  </script>
+
+  <!-- hero email: cycle through display faces every 2s (text stays selectable/copyable) -->
+  <script>
+    (function () {
+      var el = document.getElementById("hero-email");
+      if (!el) return;
+      var faces = [
+        '"Helvetica Neue LT", Helvetica, Arial, sans-serif',
+        '"Space Grotesk", sans-serif',
+        '"Space Mono", monospace',
+        '"Archivo", sans-serif',
+        '"DM Serif Display", serif',
+        '"Unbounded", sans-serif',
+        '"Bricolage Grotesque", sans-serif',
+        '"Oswald", sans-serif',
+        '"Syne", sans-serif'
+      ];
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      var i = 0;
+      setInterval(function () {
+        i = (i + 1) % faces.length;
+        el.style.fontFamily = faces[i];
+      }, 2000);
     })();
   </script>
 

@@ -12,9 +12,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* monochrome selection — no blue */
-::selection { background: #fff; color: #000; }
-::-moz-selection { background: #fff; color: #000; }
+/* selection — dark grey highlight, text stays white (never blue) */
+::selection { background: #2c2c2e; color: #fff; }
+::-moz-selection { background: #2c2c2e; color: #fff; }
 
 /* ---- typography helpers ---- */
 .label {

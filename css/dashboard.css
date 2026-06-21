@@ -1,6 +1,6 @@
 /* dashboard.css — ERD-minimal, full-bleed. The 4 video tiles are the nav. */
 
-.dash { min-height: 100vh; padding: var(--space); }
+.dash { min-height: 100vh; padding: 0; }
 
 .dash__grid {
   display: grid;
@@ -110,8 +110,10 @@
   font-size: var(--fs-email);
   font-weight: 500;
   letter-spacing: -0.03em;
+  text-transform: uppercase;
   white-space: nowrap;
   color: var(--color-text);
+  transition: opacity 0.3s var(--ease);
 }
 .hero-email:hover { opacity: 0.6; }
 .dash__footer {
